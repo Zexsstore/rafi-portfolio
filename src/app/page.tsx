@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { PROFILE, ABOUT, PROJECTS, CERTS } from "@/lib/data";
-import { Code2, Palette, Sparkles, Wand2 } from "lucide-react";
+import { Code2, Palette, Sparkles, Wand2, Boxes, PenTool, Video } from "lucide-react";
 import { FaInstagram, FaFacebook, FaTiktok, FaWhatsapp } from "react-icons/fa";
 
 
