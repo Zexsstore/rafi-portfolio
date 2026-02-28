@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useMemo, useState } from "react";
 import { FadeIn, Button, Card, Container, SectionTitle } from "./ui";
 import { CERTS, PROFILE, PROJECTS, SKILLS } from "@/lib/data";
+import Link from "next/link";
 
 
 function WaveHeader() {
@@ -64,7 +65,7 @@ function WaveHeader() {
               <div className="absolute -inset-3 rounded-[36px] bg-gradient-to-r from-sky-400/35 to-violet-400/35 blur-2xl" />
               <div className="relative overflow-hidden rounded-[36px] border border-white/10 bg-white/5 p-2">
                 <Image
-                  src={PROFILE.photo}
+                  src={PROFILE.photoHero}
                   alt="Foto Rafi (dummy)"
                   width={360}
                   height={420}
@@ -118,11 +119,11 @@ export function AboutSkills() {
           <Card id="skills">
             <SectionTitle title="Skill" desc="Mulai sedikit dulu, nanti tambah." />
             <div className="flex flex-wrap gap-2">
-              {SKILLS.map((s) => (
-                <span key={s} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs">
-                  {s}
-                </span>
-              ))}
+{(Array.isArray(SKILLS) ? SKILLS : [...(SKILLS.languages ?? []), ...(SKILLS.tools ?? [])]).map((s: any) => (
+  <span key={typeof s === "string" ? s : s.name} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs">
+    {typeof s === "string" ? s : s.name}
+  </span>
+))}
             </div>
           </Card>
         </FadeIn>
@@ -155,9 +156,15 @@ export function Projects() {
                     </span>
                   ))}
                 </div>
-                <div className="mt-5">
-                  <Button href={p.link}>Lihat (isi link)</Button>
-                </div>
+                
+<div className="mt-5">
+  <Link
+    href={`/portfolio/${p.slug}`}
+    className="inline-flex items-center justify-center rounded-2xl px-4 py-2 text-sm font-semibold border border-white/10 bg-white/5 hover:bg-white/10 transition"
+  >
+    Lihat Detail
+  </Link>
+</div>
               </Card>
             </FadeIn>
           ))}
