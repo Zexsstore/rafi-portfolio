@@ -1,0 +1,242 @@
+@import "tailwindcss";
+
+/* Base */
+@layer base {
+  :root { color-scheme: dark; }
+  body { @apply bg-zinc-950 text-zinc-100; }
+}
+
+/* Components */
+@layer components {
+  /* Glass: lebih premium (lebih subtle, tidak terlalu "abu-abu") */
+  .glass {
+    @apply border border-white/10 backdrop-blur-xl;
+    background:
+      radial-gradient(1200px 600px at 20% -10%, rgba(255,255,255,0.08), transparent 55%),
+      radial-gradient(900px 500px at 100% 0%, rgba(255,255,255,0.06), transparent 55%),
+      rgba(255,255,255,0.04);
+  }
+
+  .soft-shadow {
+    box-shadow:
+      0 30px 90px rgba(0,0,0,.55),
+      inset 0 1px 0 rgba(255,255,255,.06);
+  }
+
+  .text-muted { @apply text-zinc-400; }
+
+  
+  
+  /* Field input: konsisten, fokus elegan */
+@layer components {
+  .field {
+    @apply w-full rounded-2xl px-4 py-3 text-sm outline-none transition;
+    @apply bg-white/[0.035] border border-white/10 text-zinc-100 placeholder:text-zinc-500;
+    @apply focus:border-white/20 focus:ring-2 focus:ring-white/10;
+  }
+
+  .btn {
+    @apply relative w-full rounded-2xl px-5 py-3 text-sm font-semibold transition;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20;
+    @apply active:scale-[0.985];
+    text-align: left;
+  }
+
+  .btn-sub {
+    @apply block mt-1 text-xs font-normal text-zinc-400;
+  }
+
+  /* ✅ tombol utama: dibuat lebih "dewasa" + tidak norak */
+  .btn-primary {
+    @apply text-zinc-950;
+    background: linear-gradient(90deg, rgba(56,189,248,0.9), rgba(167,139,250,0.9));
+    box-shadow:
+      0 18px 60px rgba(0,0,0,.55),
+      0 0 0 1px rgba(255,255,255,.08) inset;
+    text-align: center;
+  }
+  .btn-primary:hover { filter: brightness(1.05); }
+  .btn-primary:active { filter: brightness(.98); }
+
+  /* ✅ compact khusus tombol Kirim Pesan */
+  .btn-primary-compact {
+    @apply inline-flex w-auto items-center justify-center;
+    @apply px-6 py-3;
+    min-width: 180px;
+  }
+
+  /* tombol WA/Email: satu family, elegan */
+  .btn-soft {
+    @apply border border-white/10 bg-white/[0.035] text-zinc-100;
+    box-shadow:
+      0 16px 55px rgba(0,0,0,.45),
+      0 0 0 1px rgba(255,255,255,.06) inset;
+  }
+  .btn-soft:hover {
+    @apply bg-white/[0.06] border-white/15;
+  }
+
+  /* state selected: glow halus, bukan rame */
+  .btn-selected {
+    border-color: rgba(255,255,255,.18);
+    background:
+      radial-gradient(900px 260px at 20% 0%, rgba(56,189,248,.14), transparent 60%),
+      radial-gradient(900px 260px at 100% 0%, rgba(167,139,250,.12), transparent 60%),
+      rgba(255,255,255,0.05);
+    box-shadow:
+      0 18px 70px rgba(0,0,0,.55),
+      0 0 0 1px rgba(255,255,255,.10) inset;
+  }
+
+  .btn-ghost {
+    @apply border border-white/10 bg-white/[0.03] text-zinc-100 hover:bg-white/[0.06];
+    box-shadow: 0 14px 45px rgba(0,0,0,.35);
+  }
+}
+
+  /* ====== (punya kamu) premium shine overlay ====== */
+  .shine {
+    position: relative;
+    overflow: hidden;
+  }
+  .shine::after {
+    content: "";
+    position: absolute;
+    inset: -40%;
+    background: linear-gradient(
+      120deg,
+      transparent 30%,
+      rgba(255,255,255,0.10) 45%,
+      transparent 60%
+    );
+    transform: translateX(-30%) rotate(8deg);
+    opacity: 0;
+    transition: opacity .35s ease;
+    pointer-events: none;
+  }
+  .shine:hover::after {
+    opacity: 1;
+    animation: shineMove 1.2s ease forwards;
+  }
+
+  /* Typing (SAFE & presisi) */
+  .typing-wrap{
+    display:inline-flex;
+    align-items:baseline;
+    position:relative;
+    max-width:100%;
+    vertical-align:bottom;
+  }
+  .typing{
+    display:inline-block;
+    white-space:nowrap;
+    overflow:hidden;
+    clip-path: inset(0 100% 0 0);
+    animation: typingReveal 1.15s steps(28,end) .15s forwards;
+  }
+  .typing-caret{
+    position:relative;
+    left: var(--caret-x, 0px);
+    display:inline-block;
+    width:2px;
+    height:1.05em;
+    margin-left:6px;
+    transform:translateY(2px);
+    background:rgba(255,255,255,.75);
+    animation:
+      caretBlink .9s steps(1,end) infinite,
+      caretHide 0s linear 1.45s forwards;
+  }
+
+  /* Social brand hover */
+  .social-btn{
+    @apply inline-flex items-center justify-center h-10 w-10 rounded-2xl border border-white/10 bg-white/5 transition;
+  }
+  .social-btn:hover{ @apply bg-white/10; }
+  .social-icon{
+    color: rgba(255,255,255,.80);
+    transition: color .18s ease, filter .18s ease, transform .18s ease;
+  }
+  .social-btn.ig:hover .social-icon{
+    color: #E1306C;
+    filter: drop-shadow(0 0 10px rgba(225,48,108,.35));
+    transform: translateY(-1px);
+  }
+  .social-btn.fb:hover .social-icon{
+    color: #1877F2;
+    filter: drop-shadow(0 0 10px rgba(24,119,242,.35));
+    transform: translateY(-1px);
+  }
+  .social-btn.tt:hover .social-icon{
+    color: #FFFFFF;
+    filter:
+      drop-shadow(0 0 8px rgba(0,0,0,.35))
+      drop-shadow(2px 0 0 rgba(254,44,85,.55))
+      drop-shadow(-2px 0 0 rgba(37,244,238,.55));
+    transform: translateY(-1px);
+  }
+  .social-btn.wa:hover .social-icon{
+    color: #25D366;
+    filter: drop-shadow(0 0 10px rgba(37,211,102,.35));
+    transform: translateY(-1px);
+  }
+  .social-btn:active{
+    transform: scale(.96);
+  }
+}
+
+/* reveal typing */
+@keyframes typingReveal { to { clip-path: inset(0 0 0 0); } }
+@keyframes caretBlink { 0%,50%{opacity:1} 51%,100%{opacity:0} }
+@keyframes caretHide { to { opacity:0 } }
+
+@keyframes shineMove {
+  from { transform: translateX(-30%) rotate(8deg); }
+  to   { transform: translateX(30%) rotate(8deg); }
+}
+
+/* Premium hover shine + glow (untuk Gallery card) */
+.premium-card {
+  position: relative;
+  overflow: hidden;
+}
+.premium-card::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: linear-gradient(
+    120deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.10) 50%,
+    transparent 65%
+  );
+  transform: translateX(-40%) rotate(8deg);
+  opacity: 0;
+  pointer-events: none;
+}
+.premium-card:hover::after {
+  opacity: 1;
+  animation: premiumShine 1.2s ease forwards;
+}
+@keyframes premiumShine {
+  from { transform: translateX(-40%) rotate(8deg); }
+  to   { transform: translateX(40%) rotate(8deg); }
+}
+
+
+@layer utilities {
+  /* Paragraf rapi ala website premium (justify + hyphen) */
+  .prose-justify {
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+
+  /* Lebar paragraf ideal biar nyaman & rapih */
+  .measure {
+    max-width: 68ch;
+  }
+}
