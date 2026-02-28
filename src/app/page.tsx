@@ -2,23 +2,25 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+
 import { useEffect, useMemo, useRef, useState } from "react";
 import { PROFILE, ABOUT, PROJECTS, CERTS } from "@/lib/data";
 import { Code2, Palette, Sparkles, Wand2, Boxes, PenTool, Video } from "lucide-react";
 import { FaInstagram, FaFacebook, FaTiktok, FaWhatsapp } from "react-icons/fa";
+import { motion, type Variants } from "framer-motion";
 
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 18 },
-  show: {
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 18, filter: "blur(8px)" },
+  show: (d: number = 0) => ({
     opacity: 1,
     y: 0,
+    filter: "blur(0px)",
     transition: {
       duration: 0.8,
-      ease: "easeOut",
+      delay: d,
+      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
     },
-  },
+  }),
 };
 
 const floatAnim = {
